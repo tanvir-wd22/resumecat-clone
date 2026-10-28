@@ -31,10 +31,10 @@ const Faq = () => {
         - Handles all internal padding so it looks good without needing outside margins
         - rounded-xl for the soft corners seen in the image
       */}
-      <div className="max-w-7xl mx-auto px-6 py-16 sm:px-10 sm:py-20 lg:px-12 rounded-xl bg-[#F8FAFC]">
+      <div className="p-12 sm:p-16 rounded-xl bg-[#F8FAFC]">
         {/* Header Section */}
-        <div className="border-b border-[#E2E8F0] pb-6 mb-0">
-          <h2 className="text-3xl sm:text-[2rem] font-bold text-[#1E293B] tracking-tight">
+        <div className="border-b border-[#E2E8F0]">
+          <h2 className="text-3xl sm:text-[2rem] font-bold text-[#1E293B] tracking-tight mb-2">
             Frequently asked questions
           </h2>
         </div>

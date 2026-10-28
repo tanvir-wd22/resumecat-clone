@@ -40,7 +40,7 @@ const Header = () => {
 
   return (
     // "relative" lets the mobile menu panel position itself under the header
-    <header className="relative w-full border-b border-gray-200 bg-white">
+    <header className="relative w-full border-b border-gray-200 bg-white mb-12 sm:mb-16 lg:mb-20">
       {/* Full width on purpose: no max-w here */}
       <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
