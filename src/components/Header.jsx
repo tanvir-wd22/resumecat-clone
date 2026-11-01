@@ -1,144 +1,135 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router";
+import { Link } from "react-router";
 import { FaCat } from "react-icons/fa6";
-import { HiBars3, HiXMark } from "react-icons/hi2";
-
-// All routes in one place. They match the paths in your router file.
-const navLinks = [
-  { label: "Resume Templates", to: "/templates" },
-  { label: "Resume Examples", to: "/examples" },
-  { label: "Pricing", to: "/pricing" },
-];
+import { HiBars3 } from "react-icons/hi2";
+import useAuth from "../hooks/useAuth";
+import NavLinks from "./NavLinks";
+import ProfileMenu from "./ProfileMenu";
 
 const SIGN_IN_PATH = "/signin";
 const MY_RESUMES_PATH = "/myResumes";
-
-// NavLink gives us isActive, so the current page can be highlighted.
-const desktopLinkClass = ({ isActive }) =>
-  `whitespace-nowrap hover:text-blue-600 ${isActive ? "text-blue-600" : ""}`;
-
-const mobileLinkClass = ({ isActive }) =>
-  `border-b border-gray-100 py-3 hover:text-blue-600 ${
-    isActive ? "text-blue-600" : ""
-  }`;
+const PRICING_PATH = "/pricing";
 
 const Header = () => {
-  // true = the mobile/tablet menu is open
-  const [menuOpen, setMenuOpen] = useState(false);
+  // "user" is the logged-in person. It is empty (null) when nobody is logged in.
+  const { user } = useAuth();
 
-  const closeMenu = () => setMenuOpen(false);
-
-  // Close the menu when the Escape key is pressed
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") setMenuOpen(false);
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  // daisyUI dropdowns stay open while they have focus.
+  // blur() removes the focus, which closes the dropdown.
+  const closeDropdown = () => document.activeElement?.blur();
 
   return (
-    // "relative" lets the mobile menu panel position itself under the header
-    <header className="relative w-full border-b border-gray-200 bg-white mb-12 sm:mb-16 lg:mb-20">
-      {/* Full width on purpose: no max-w here */}
-      <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Logo */}
+    <header className="navbar mb-12 border-b border-gray-200 bg-white px-4 shadow-sm sm:mb-16 sm:px-6 lg:mb-20 lg:px-8">
+      {/* ---------- LEFT: logo ---------- */}
+      {/* w-auto = the logo only takes the space it needs */}
+      <div className="navbar-start w-auto">
         <Link
           to="/"
-          onClick={closeMenu}
-          className="flex items-center gap-2 text-2xl font-extrabold tracking-tight text-[#102a43]"
+          className="flex items-center gap-2 text-2xl font-extrabold tracking-tighter"
         >
           <FaCat className="text-blue-600" />
-          <span>ResumeCat</span>
+          <span>
+            <span className="text-[#102a43]">Resume</span>
+            <span className="text-blue-600">Cat</span>
+          </span>
         </Link>
-
-        {/* Desktop (lg and up): links and buttons in one row */}
-        <div className="hidden items-center gap-6 lg:flex">
-          <nav className="flex items-center gap-6 text-base font-medium text-slate-700">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.label}
-                to={link.to}
-                className={desktopLinkClass}
-              >
-                {link.label}
-              </NavLink>
-            ))}
-          </nav>
-
-          <div className="h-6 w-px bg-gray-300"></div>
-
-          <Link
-            to={SIGN_IN_PATH}
-            className="whitespace-nowrap text-base font-semibold text-blue-600 hover:text-blue-700"
-          >
-            Sign In
-          </Link>
-
-          <Link
-            to={MY_RESUMES_PATH}
-            className="whitespace-nowrap rounded-md bg-blue-600 px-5 py-2.5 text-base font-semibold text-white transition-colors hover:bg-blue-700"
-          >
-            My Resumes
-          </Link>
-        </div>
-
-        {/* Mobile and tablet (below lg): hamburger button */}
-        <button
-          type="button"
-          onClick={() => setMenuOpen((open) => !open)}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          className="rounded-md p-2 text-[#102a43] transition hover:bg-slate-100 lg:hidden"
-        >
-          {menuOpen ? (
-            <HiXMark className="size-7" />
-          ) : (
-            <HiBars3 className="size-7" />
-          )}
-        </button>
       </div>
 
-      {/* Mobile and tablet menu panel (hidden on lg and up) */}
-      {menuOpen && (
-        <div
-          id="mobile-menu"
-          className="absolute inset-x-0 top-full z-50 border-b border-gray-200 bg-white px-4 pb-5 pt-2 shadow-lg sm:px-6 lg:hidden"
-        >
-          <nav className="flex flex-col text-base font-medium text-slate-700">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.label}
-                to={link.to}
-                onClick={closeMenu}
-                className={mobileLinkClass}
-              >
-                {link.label}
-              </NavLink>
-            ))}
-          </nav>
+      {/* ---------- RIGHT: links + buttons ---------- */}
+      {/* flex-1 = the right side takes all the remaining space */}
+      <div className="navbar-end flex-1 gap-3 lg:gap-6">
+        {/* Page links (large screens only) */}
+        <ul className="hidden items-center gap-6 text-base font-medium text-slate-700 lg:flex">
+          <NavLinks />
+        </ul>
 
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        {/* Thin divider line (large screens only) */}
+        <div className="hidden h-6 w-px bg-gray-300 lg:block"></div>
+
+        {user ? (
+          // Logged IN: "Get Pro" button + avatar dropdown
+          <>
+            {/* "hidden sm:block" = hidden on very small screens */}
+            <Link
+              to={PRICING_PATH}
+              className="hidden whitespace-nowrap rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 sm:block"
+            >
+              Get Pro
+            </Link>
+
+            <ProfileMenu />
+          </>
+        ) : (
+          // Logged OUT: Sign In + My Resumes (large screens only)
+          <div className="hidden items-center gap-6 lg:flex">
             <Link
               to={SIGN_IN_PATH}
-              onClick={closeMenu}
-              className="rounded-md border border-blue-600 px-5 py-2.5 text-center text-base font-semibold text-blue-600 transition-colors hover:bg-blue-50"
+              className="whitespace-nowrap text-base font-medium text-blue-600 hover:text-blue-700"
             >
               Sign In
             </Link>
 
             <Link
               to={MY_RESUMES_PATH}
-              onClick={closeMenu}
-              className="rounded-md bg-blue-600 px-5 py-2.5 text-center text-base font-semibold text-white transition-colors hover:bg-blue-700"
+              className="whitespace-nowrap rounded-md bg-blue-600 px-5 py-2.5 text-base font-semibold text-white transition-colors hover:bg-blue-700"
             >
               My Resumes
             </Link>
           </div>
+        )}
+
+        {/* ---------- Hamburger menu (screens smaller than lg) ---------- */}
+        <div className="dropdown dropdown-end lg:hidden">
+          <div
+            tabIndex={0}
+            role="button"
+            aria-label="Open menu"
+            className="btn btn-ghost px-2"
+          >
+            <HiBars3 className="size-7 text-[#102a43]" />
+          </div>
+
+          {/* Clicking any item inside closes the menu */}
+          <ul
+            tabIndex={-1}
+            onClick={closeDropdown}
+            className="menu dropdown-content z-50 mt-3 w-52 rounded-box bg-white p-2 text-base font-medium text-slate-700 shadow-lg"
+          >
+            <NavLinks />
+
+            {user ? (
+              // Logged in: "Get Pro" only shows here on very small screens
+              <li className="mt-2 sm:hidden">
+                <Link
+                  to={PRICING_PATH}
+                  className="justify-center bg-blue-600 font-semibold text-white hover:bg-blue-700"
+                >
+                  Get Pro
+                </Link>
+              </li>
+            ) : (
+              // Logged out: Sign In + My Resumes
+              <>
+                <li className="mt-2">
+                  <Link
+                    to={SIGN_IN_PATH}
+                    className="font-semibold text-blue-600"
+                  >
+                    Sign In
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={MY_RESUMES_PATH}
+                    className="justify-center bg-blue-600 font-semibold text-white hover:bg-blue-700"
+                  >
+                    My Resumes
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
         </div>
-      )}
+      </div>
     </header>
   );
 };

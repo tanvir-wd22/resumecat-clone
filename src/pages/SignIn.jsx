@@ -3,6 +3,7 @@ import { HiOutlineEnvelope } from "react-icons/hi2";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router";
 import { useState } from "react";
+import EmailLogin from "./EmailLogin"; // 1. import the new component
 
 const signInOptions = [
   {
@@ -26,9 +27,10 @@ const SignIn = () => {
   const { signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+  const [showEmailForm, setShowEmailForm] = useState(false); // 2. new state
 
   const handleSignIn = async (optionId) => {
-    setError(null); // Reset error state before attempting sign-in
+    setError(null);
     try {
       if (optionId === "1") {
         await signInWithGoogle();
@@ -36,7 +38,7 @@ const SignIn = () => {
       } else if (optionId === "2") {
         setError("Facebook sign-in is not configured yet.");
       } else if (optionId === "3") {
-        setError("Email sign-in is not configured yet.");
+        setShowEmailForm(true); // 3. open the email form
       }
     } catch (err) {
       console.error("Sign-in error:", err);
@@ -45,52 +47,46 @@ const SignIn = () => {
   };
 
   return (
-    <section aria-labelledby="signin-heading" className="w-full">
+    <section className="w-full">
       <div className="mx-auto w-full max-w-md">
-        {/* Heading */}
         <header className="mb-9 text-center sm:mb-10">
-          <h1
-            id="signin-heading"
-            className="text-4xl leading-tight font-bold tracking-tight text-blue-600 sm:text-5xl"
-          >
+          <h1 className="text-4xl font-bold text-blue-600 sm:text-5xl">
             Welcome Back
           </h1>
-
-          <p className="mt-3 text-base leading-6 text-slate-500 sm:text-lg">
+          <p className="mt-3 text-slate-500">
             Sign in to continue where you left off
           </p>
         </header>
 
-        {/* Sign-in Options */}
-        <div className="flex flex-col gap-3">
-          {signInOptions.map((option) => (
-            <button
-              key={option.id}
-              type="button"
-              onClick={() => handleSignIn(option.id)}
-              className="group flex min-h-[60px] w-full items-center rounded-lg bg-slate-100 px-4 text-slate-900 transition-colors duration-200 hover:bg-slate-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 active:bg-slate-200 sm:px-6"
-            >
-              {/* Provider Icon */}
-              <span className="flex w-10 shrink-0 items-center justify-start">
-                {option.icon}
-              </span>
+        {/* If showEmailForm is true, show the form. Otherwise show the buttons. */}
+        {showEmailForm ? (
+          <EmailLogin onBack={() => setShowEmailForm(false)} />
+        ) : (
+          <div className="flex flex-col gap-3">
+            {signInOptions.map((option) => (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => handleSignIn(option.id)}
+                className="group flex min-h-[60px] w-full items-center rounded-lg bg-slate-100 px-4 text-slate-900 hover:bg-slate-200 sm:px-6"
+              >
+                <span className="flex w-10 shrink-0 items-center">
+                  {option.icon}
+                </span>
+                <span className="flex-1 text-left font-medium">
+                  {option.label}
+                </span>
+                <FaChevronRight className="text-slate-700" />
+              </button>
+            ))}
 
-              {/* Provider Name */}
-              <span className="flex-1 text-left text-base font-medium">
-                {option.label}
-              </span>
+            {error && (
+              <p className="text-center text-sm text-red-600">{error}</p>
+            )}
+          </div>
+        )}
 
-              {/* Right Arrow */}
-              <FaChevronRight
-                aria-hidden="true"
-                className="text-base text-slate-700 transition-transform duration-200 group-hover:translate-x-0.5"
-              />
-            </button>
-          ))}
-        </div>
-
-        {/* Sign-up Link */}
-        <p className="mt-9 text-center text-sm leading-6 text-slate-500 sm:mt-10 sm:text-base">
+        <p className="mt-9 text-center text-sm text-slate-500 sm:text-base">
           I am not registered — <Link to="/signup">Sign Up</Link>
         </p>
       </div>

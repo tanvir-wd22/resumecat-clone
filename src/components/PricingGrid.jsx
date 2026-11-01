@@ -59,26 +59,24 @@ const PricingGrid = () => {
   ];
 
   return (
-   
-
     <>
-    {/* Section heading */}
-        <div className="mb-10 text-center sm:mb-12 lg:mb-14"> 
-          <p className="mb-2 text-sm font-semibold tracking-wide text-blue-600 uppercase">
-            Resumecat
-          </p>
+      {/* Section heading */}
+      <div className="mb-10 text-center sm:mb-12 lg:mb-14">
+        <p className="mb-2 text-sm font-semibold tracking-wide text-blue-600 uppercase">
+          Resumecat
+        </p>
 
-          <h2 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-            PricingGrid
-          </h2>
-        </div>
+        <h2 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
+          Pricing
+        </h2>
+      </div>
 
-        {/* PricingGrid cards grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-          {pricingPlans.map((plan) => (
-            <PricingCard key={plan.id} plan={plan} />
-          ))}
-        </div>
+      {/* PricingGrid cards grid */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        {pricingPlans.map((plan) => (
+          <PricingCard key={plan.id} plan={plan} />
+        ))}
+      </div>
     </>
   );
 };
