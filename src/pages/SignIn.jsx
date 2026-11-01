@@ -1,7 +1,7 @@
 import { FaGoogle, FaFacebook, FaChevronRight } from "react-icons/fa6";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useState } from "react";
 
 const signInOptions = [
@@ -91,13 +91,7 @@ const SignIn = () => {
 
         {/* Sign-up Link */}
         <p className="mt-9 text-center text-sm leading-6 text-slate-500 sm:mt-10 sm:text-base">
-          I am not registered —{" "}
-          <a
-            href="/signup"
-            className="font-medium text-blue-600 transition-colors hover:text-blue-700 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-          >
-            Sign Up
-          </a>
+          I am not registered — <Link to="/signup">Sign Up</Link>
         </p>
       </div>
     </section>

@@ -6,6 +6,7 @@ import Templates from "../pages/Templates";
 import Examples from "../pages/Examples";
 import Pricing from "../pages/Pricing";
 import MyResumes from "../pages/MyResumes";
+import SignUp from "../pages/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/myResumes",
         element: <MyResumes></MyResumes>,
+      },
+      {
+        path: "/signup",
+        element: <SignUp></SignUp>,
       },
     ],
   },
