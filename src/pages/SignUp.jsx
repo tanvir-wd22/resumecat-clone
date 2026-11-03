@@ -23,7 +23,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center mb-12 sm:mb-16 lg:mb-20">
       <form onSubmit={handleSignUpForm}>
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
           <label className="label">Name</label>

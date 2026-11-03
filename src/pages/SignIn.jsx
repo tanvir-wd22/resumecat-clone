@@ -3,7 +3,7 @@ import { HiOutlineEnvelope } from "react-icons/hi2";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router";
 import { useState } from "react";
-import EmailLogin from "./EmailLogin"; // 1. import the new component
+import EmailLogin from "./EmailLogin";
 
 const signInOptions = [
   {
@@ -24,7 +24,7 @@ const signInOptions = [
 ];
 
 const SignIn = () => {
-  const { signInWithGoogle } = useAuth();
+  const { googleSigninUser } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [showEmailForm, setShowEmailForm] = useState(false); // 2. new state
@@ -33,7 +33,7 @@ const SignIn = () => {
     setError(null);
     try {
       if (optionId === "1") {
-        await signInWithGoogle();
+        await googleSigninUser();
         navigate("/");
       } else if (optionId === "2") {
         setError("Facebook sign-in is not configured yet.");
@@ -47,7 +47,7 @@ const SignIn = () => {
   };
 
   return (
-    <section className="w-full">
+    <section className="w-full mb-12 sm:mb-16 lg:mb-20">
       <div className="mx-auto w-full max-w-md">
         <header className="mb-9 text-center sm:mb-10">
           <h1 className="text-4xl font-bold text-blue-600 sm:text-5xl">
@@ -68,7 +68,7 @@ const SignIn = () => {
                 key={option.id}
                 type="button"
                 onClick={() => handleSignIn(option.id)}
-                className="group flex min-h-[60px] w-full items-center rounded-lg bg-slate-100 px-4 text-slate-900 hover:bg-slate-200 sm:px-6"
+                className="group flex min-h-15 w-full items-center rounded-lg bg-slate-100 px-4 text-slate-900 hover:bg-slate-200 sm:px-6"
               >
                 <span className="flex w-10 shrink-0 items-center">
                   {option.icon}
