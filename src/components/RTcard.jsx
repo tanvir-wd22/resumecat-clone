@@ -1,4 +1,4 @@
-const TemplateCard = ({ template }) => {
+const RTcard = ({ template }) => {
   const { name, description, image, colorName, format } = template;
 
   return (
@@ -41,4 +41,4 @@ const TemplateCard = ({ template }) => {
   );
 };
 
-export default TemplateCard;
+export default RTcard;

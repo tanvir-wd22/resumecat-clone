@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import TemplateCard from "./TemplateCard";
 import BASE_URL from "../api/baseUrl";
+import RTcard from "./RTcard";
 
-const AllTemplates = () => {
+const RTtemplates = () => {
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -56,10 +56,10 @@ const AllTemplates = () => {
   return (
     <section className="grid grid-cols-1 gap-x-5 gap-y-10 md:grid-cols-2 lg:grid-cols-4">
       {templates.map((template) => (
-        <TemplateCard key={template._id} template={template} />
+        <RTcard key={template._id} template={template} />
       ))}
     </section>
   );
 };
 
-export default AllTemplates;
+export default RTtemplates;

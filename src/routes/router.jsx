@@ -2,11 +2,12 @@ import Root from "../layouts/Root";
 import Home from "../pages/Home";
 import SignIn from "../pages/SignIn";
 import { createBrowserRouter } from "react-router";
-import Templates from "../pages/Templates";
-import Examples from "../pages/Examples";
+import Templates from "../pages/ResumeTemplates";
 import Pricing from "../pages/Pricing";
 import MyResumes from "../pages/MyResumes";
 import SignUp from "../pages/SignUp";
+import ResumeExamples from "../pages/ResumeExamples";
+import ResumeTemplates from "../pages/ResumeTemplates";
 
 const router = createBrowserRouter([
   {
@@ -18,12 +19,12 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/templates",
-        element: <Templates></Templates>,
+        path: "/resumeTemplates",
+        element: <ResumeTemplates></ResumeTemplates>,
       },
       {
-        path: "/examples",
-        element: <Examples></Examples>,
+        path: "/resumeExamples",
+        element: <ResumeExamples></ResumeExamples>,
       },
       {
         path: "/pricing",

@@ -13,7 +13,7 @@ const steps = [
   },
 ];
 
-const TemplateInfo = () => {
+const RTinfo = () => {
   return (
     <section className="w-full">
       {/* Heading Section */}
@@ -78,4 +78,4 @@ const TemplateInfo = () => {
   );
 };
 
-export default TemplateInfo;
+export default RTinfo;
