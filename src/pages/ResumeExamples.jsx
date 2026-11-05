@@ -1,4 +1,5 @@
 import Container from "../components/Container";
+import REdataload from "../components/REDataLoad";
 import REhero from "../components/REhero";
 
 const ResumeExamples = () => {
@@ -7,6 +8,7 @@ const ResumeExamples = () => {
       <Container>
         <REhero></REhero>
       </Container>
+      <REdataload></REdataload>
     </div>
   );
 };

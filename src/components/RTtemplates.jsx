@@ -10,7 +10,7 @@ const RTtemplates = () => {
   useEffect(() => {
     const fetchTemplates = async () => {
       try {
-        const res = await fetch(`${BASE_URL}/resumes`);
+        const res = await fetch(`${BASE_URL}/resumeTemplates`);
 
         if (!res.ok) {
           throw new Error("Failed to fetch templates");
