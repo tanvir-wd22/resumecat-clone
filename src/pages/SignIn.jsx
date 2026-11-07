@@ -1,7 +1,7 @@
 import { FaGoogle, FaFacebook, FaChevronRight } from "react-icons/fa6";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import useAuth from "../hooks/useAuth";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useState } from "react";
 import EmailLogin from "./EmailLogin";
 
@@ -26,15 +26,18 @@ const signInOptions = [
 const SignIn = () => {
   const { googleSigninUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [error, setError] = useState(null);
   const [showEmailForm, setShowEmailForm] = useState(false); // 2. new state
+
+  const from = location?.state?.from?.pathname || "/";
 
   const handleSignIn = async (optionId) => {
     setError(null);
     try {
       if (optionId === "1") {
         await googleSigninUser();
-        navigate("/");
+        navigate(from, { replace: true });
       } else if (optionId === "2") {
         setError("Facebook sign-in is not configured yet.");
       } else if (optionId === "3") {

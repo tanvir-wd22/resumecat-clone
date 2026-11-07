@@ -2,14 +2,14 @@ import Root from "../layouts/Root";
 import Home from "../pages/Home";
 import SignIn from "../pages/SignIn";
 import { createBrowserRouter } from "react-router";
-import Templates from "../pages/ResumeTemplates";
 import Pricing from "../pages/Pricing";
 import MyResumes from "../pages/MyResumes";
 import SignUp from "../pages/SignUp";
 import ResumeExamples from "../pages/ResumeExamples";
 import ResumeTemplates from "../pages/ResumeTemplates";
+import PrivateRoute from "./PrivateRoute";
 
-const router = createBrowserRouter([
+const publicRoutes = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
@@ -36,7 +36,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/myResumes",
-        element: <MyResumes></MyResumes>,
+        element: (
+          <PrivateRoute>
+            <MyResumes></MyResumes>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/signup",
@@ -46,4 +50,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default router;
+export default publicRoutes;
