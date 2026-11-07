@@ -7,7 +7,6 @@ import MyResumes from "../pages/MyResumes";
 import SignUp from "../pages/SignUp";
 import ResumeExamples from "../pages/ResumeExamples";
 import ResumeTemplates from "../pages/ResumeTemplates";
-import PrivateRoute from "./PrivateRoute";
 import EmailLogin from "../pages/EmailPassLoginForm";
 
 const publicRoutes = createBrowserRouter([
@@ -41,11 +40,7 @@ const publicRoutes = createBrowserRouter([
       },
       {
         path: "/myResumes",
-        element: (
-          <PrivateRoute>
-            <MyResumes></MyResumes>
-          </PrivateRoute>
-        ),
+        element: <MyResumes></MyResumes>,
       },
       {
         path: "/signup",
