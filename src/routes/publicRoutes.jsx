@@ -8,6 +8,7 @@ import SignUp from "../pages/SignUp";
 import ResumeExamples from "../pages/ResumeExamples";
 import ResumeTemplates from "../pages/ResumeTemplates";
 import PrivateRoute from "./PrivateRoute";
+import EmailLogin from "../pages/EmailPassLoginForm";
 
 const publicRoutes = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const publicRoutes = createBrowserRouter([
       {
         path: "/signin",
         element: <SignIn></SignIn>,
+      },
+      {
+        path: "/signin/emailPassForm",
+        element: <EmailLogin></EmailLogin>,
       },
       {
         path: "/myResumes",
